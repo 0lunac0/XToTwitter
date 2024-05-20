@@ -8,6 +8,7 @@
 // @grant        none
 // @updateURL    https://raw.githubusercontent.com/0lunac0/XToTwitter/main/main.user.js
 // @downloadURL  https://raw.githubusercontent.com/0lunac0/XToTwitter/main/main.user.js
+// @author Luna
 // ==/UserScript==
 
 (function() {
