@@ -25,8 +25,6 @@
     function checkTwitterMx() {
         const urlParams = new URLSearchParams(window.location.search);
         if (window.location.hostname === 'twitter.com' && urlParams.get('mx') !== '1') {
-            // Retry without mobile user agent
-            console.log('Redirected to Twitter but without mx=1');
             window.location.href = 'https://twitter.com/?mx=1';
         }
     }
