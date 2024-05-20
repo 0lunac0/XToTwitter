@@ -12,34 +12,41 @@
 // ==/UserScript==
 
 (function() {
-    'use strict';
+  'use strict';
+  var redirectUrl = 'https://x.com/x/migrate';
 
-    // Function to check if we are on x.com and redirect
-    function redirectToMigrate() {
-        if (window.location.hostname === 'x.com' || window.location.hostname.endsWith('.x.com')) {
-            window.location.href = 'https://x.com/x/migrate';
-        }
+  function redirectXCom(url) {
+    if (url.hostname === "x.com" || url.hostname.endsWith(".x.com")) {
+      window.location.href = redirectUrl;
     }
+  }
 
-    // Function to check if we are on twitter.com with ?mx=1
-    function checkTwitterMx() {
-        const urlParams = new URLSearchParams(window.location.search);
-        if (window.location.hostname === 'twitter.com' && urlParams.get('mx') !== '1') {
-            window.location.href = 'https://twitter.com/?mx=1';
-        }
+  function checkTwitterRedirect(url) {
+    if (url.hostname === "twitter.com" && url.searchParams.get("mx") === "1") {
+      console.log("Successfully redirected back to Twitter with mx=1");
+      // You can add any additional logic here if needed
+    } else if (url.hostname === "twitter.com") {
+      console.log("Redirected to Twitter but without mx=1, re-attempting redirect");
+      // Attempt to redirect again if necessary
+      window.location.href = redirectUrl;
     }
+  }
 
-    // Check if on x.com and redirect
-    redirectToMigrate();
+  // Listen for page loads and redirects
+  window.addEventListener('load', function() {
+    var currentUrl = new URL(window.location.href);
+    redirectXCom(currentUrl);
+  });
 
-    // Check if on twitter.com with mx=1
-    checkTwitterMx();
+  // Listen for URL changes (e.g. when the user navigates to a new page)
+  window.addEventListener('popstate', function() {
+    var currentUrl = new URL(window.location.href);
+    redirectXCom(currentUrl);
+  });
 
-    // Observe URL changes
-    const observer = new MutationObserver(() => {
-        redirectToMigrate();
-        checkTwitterMx();
-    });
-    observer.observe(document, { subtree: true, childList: true });
-
+  // Listen for completed page loads (to check for Twitter redirects)
+  window.addEventListener('load', function() {
+    var currentUrl = new URL(window.location.href);
+    checkTwitterRedirect(currentUrl);
+  });
 })();
