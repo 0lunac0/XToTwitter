@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         X To Twitter
 // @namespace    http://tampermonkey.net/
-// @version      1.1
+// @version      1.0
 // @description  Return to your old wish Twitter
 // @match        *://*.x.com/*
 // @match        *://*.twitter.com/*
