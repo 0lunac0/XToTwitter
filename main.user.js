@@ -24,7 +24,7 @@
   function checkTwitterRedirect(url) {
     if (url.hostname === "twitter.com" && url.searchParams.get("mx") === "1") {
       console.log("Successfully redirected back to Twitter with mx=1");
-      // You can add any additional logic here if needed
+
     } else if (url.hostname === "twitter.com") {
       console.log("Redirected to Twitter but without mx=1, re-attempting redirect");
       // Attempt to redirect again if necessary
